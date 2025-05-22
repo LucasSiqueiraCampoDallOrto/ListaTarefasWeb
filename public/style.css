@@ -22,7 +22,11 @@ nav li {
 }
 nav button {
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 15px; 
+}
+nav button:hover {
+    cursor:pointer;
+    background-color: lightgray;
 }
 /* Tela Principal */
 .tela-principal {
