@@ -54,10 +54,24 @@ nav button:hover {
 }
 
 /* CAMPO CRIAR TAREFAS */
+.campo-tarefa {
+    display: inline-block;
+}
+/* BARRA INPUT */
 #campo {
     width: 200px;
     height: 20px;
     border-radius: 10px;
     margin-top: 10px;
     margin-left: 10px;
+}
+/* BOTÃO CRIAR TAREFAS */
+#btn-campo {
+    width: 50px;
+    height: 20px;
+    margin-left: 7px;    
+}
+#btn-campo:hover {
+    cursor:pointer;
+    background-color: lightgray;
 }
