@@ -3,9 +3,26 @@
     padding: 0;
 }
 
+/* HEADER */
+header {
+    background-color: gray;
+}
 /* Título */
 #titulo {
     text-align: center;
+    color: white;
+}
+/* NAVBAR */
+nav {
+    text-align: right;
+    padding: 10px;
+}
+nav li {
+    display: inline-block;
+}
+nav button {
+    padding: 10px;
+    border-radius: 15px;
 }
 /* Tela Principal */
 .tela-principal {
@@ -14,6 +31,7 @@
     height: 500px;
     display: flex;
     margin: auto;
+    margin-top: 20px;
     align-items: center;
     justify-content: center;
 }
