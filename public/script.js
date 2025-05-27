@@ -66,4 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
             renderizarTarefas();
         }
     }
+
+    // Função para alternar status de concluída
+    function toggleConcluida(index) {
+        tarefas[index].concluida = !tarefas[index].concluida;
+        renderizarTarefas();
+    }
 });
