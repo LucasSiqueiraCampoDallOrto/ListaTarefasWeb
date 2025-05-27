@@ -53,4 +53,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Salva no localStorage
         localStorage.setItem('tarefas', JSON.stringify(tarefas));
     }
+
+    // Função para adicionar nova tarefa
+    function adicionarTarefa() {
+        const texto = inputTarefa.value.trim();
+        if (texto) {
+            tarefas.push({
+                texto: texto,
+                concluida: false
+            });
+            inputTarefa.value = '';
+            renderizarTarefas();
+        }
+    }
 });
