@@ -72,4 +72,13 @@ document.addEventListener('DOMContentLoaded', function() {
         tarefas[index].concluida = !tarefas[index].concluida;
         renderizarTarefas();
     }
+
+    // Função para editar tarefa
+    function editarTarefa(index) {
+        const novoTexto = prompt('Editar tarefa:', tarefas[index].texto);
+        if (novoTexto !== null && novoTexto.trim() !== '') {
+            tarefas[index].texto = novoTexto.trim();
+            renderizarTarefas();
+        }
+    }
 });
