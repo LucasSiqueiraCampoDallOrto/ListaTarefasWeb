@@ -81,4 +81,23 @@ document.addEventListener('DOMContentLoaded', function() {
             renderizarTarefas();
         }
     }
+
+    // Função para excluir tarefa
+    function excluirTarefa(index) {
+        if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
+            tarefas.splice(index, 1);
+            renderizarTarefas();
+        }
+    }
+    
+    // Event listeners
+    btnCriar.addEventListener('click', adicionarTarefa);
+    inputTarefa.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            adicionarTarefa();
+        }
+    });
+    
+    // Renderiza as tarefas ao carregar a página
+    renderizarTarefas();
 });
