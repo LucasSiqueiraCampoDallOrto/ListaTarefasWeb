@@ -252,17 +252,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Elementos do DOM
             const loginForm = document.querySelector('form');
             const usernameInput = document.getElementById('username');
             const passwordInput = document.getElementById('password');
             const registerLink = document.querySelector('.register-link a');
             const loginButton = document.querySelector('.login-button');
             
-            // Modo atual (login ou registro)
             let isRegisterMode = false;
             
-            // Alternar entre login e registro
             registerLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 isRegisterMode = !isRegisterMode;
@@ -280,14 +277,12 @@
                 }
             });
             
-            // Manipular o envio do formulário
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 const username = usernameInput.value.trim();
                 const password = passwordInput.value.trim();
-                
-                // Validação básica
+    
                 if (!username || !password) {
                     showAlert('Por favor, preencha todos os campos', 'error');
                     return;
@@ -299,22 +294,18 @@
                     loginUser(username, password);
                 }
             });
-            
-            // Cadastrar usuário
+    
             function registerUser(username, password) {
-                // Verificar se usuário já existe
                 const users = getUsers();
                 if (users[username]) {
                     showAlert('Nome de usuário já está em uso', 'error');
                     return;
                 }
                 
-                // Adicionar novo usuário
                 users[username] = { password };
                 localStorage.setItem('users', JSON.stringify(users));
                 
                 showAlert('Cadastro realizado com sucesso!', 'success');
-                // Alternar para modo de login após cadastro
                 isRegisterMode = false;
                 loginButton.textContent = 'Entrar';
                 registerLink.textContent = 'Não tem uma conta? Registre-se';
@@ -322,7 +313,6 @@
                 document.querySelector('.logo p').textContent = 'Faça login para acessar sua conta';
             }
             
-            // Login do usuário
             function loginUser(username, password) {
                 const users = getUsers();
                 
@@ -337,23 +327,18 @@
                 }
                 
                 showAlert('Login realizado com sucesso! Redirecionando...', 'success');
-                
-                // Simular redirecionamento após login
+        
                 setTimeout(() => {
-                    // Aqui você pode redirecionar para a página principal
                     window.location.href = 'dashboard.html';
                     alert(`Bem-vindo, ${username}! (Redirecionamento simulado)`);
                 }, 1500);
             }
             
-            // Obter usuários do localStorage
             function getUsers() {
                 return JSON.parse(localStorage.getItem('users')) || {};
             }
-            
-            // Mostrar mensagem de alerta
+        
             function showAlert(message, type) {
-                // Remover alertas anteriores
                 const existingAlert = document.querySelector('.alert');
                 if (existingAlert) {
                     existingAlert.remove();
@@ -363,7 +348,6 @@
                 alertDiv.className = `alert ${type}`;
                 alertDiv.textContent = message;
                 
-                // Adicionar estilo para o alerta
                 const style = document.createElement('style');
                 style.textContent = `
                     .alert {
@@ -390,12 +374,10 @@
                     }
                 `;
                 document.head.appendChild(style);
-                
-                // Inserir o alerta após o logo
+            
                 const logo = document.querySelector('.logo');
                 logo.insertAdjacentElement('afterend', alertDiv);
                 
-                // Remover o alerta após 3 segundos
                 setTimeout(() => {
                     alertDiv.style.animation = 'fadeOut 0.3s ease';
                     setTimeout(() => {
