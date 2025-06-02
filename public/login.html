@@ -248,5 +248,164 @@
             </div>
         </form>
     </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos do DOM
+            const loginForm = document.querySelector('form');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const registerLink = document.querySelector('.register-link a');
+            const loginButton = document.querySelector('.login-button');
+            
+            // Modo atual (login ou registro)
+            let isRegisterMode = false;
+            
+            // Alternar entre login e registro
+            registerLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                isRegisterMode = !isRegisterMode;
+                
+                if (isRegisterMode) {
+                    loginButton.textContent = 'Cadastrar';
+                    registerLink.textContent = 'Já tem uma conta? Faça login';
+                    document.querySelector('.logo h1').textContent = 'Crie sua conta';
+                    document.querySelector('.logo p').textContent = 'Preencha os campos para se cadastrar';
+                } else {
+                    loginButton.textContent = 'Entrar';
+                    registerLink.textContent = 'Não tem uma conta? Registre-se';
+                    document.querySelector('.logo h1').textContent = 'Bem-vindo';
+                    document.querySelector('.logo p').textContent = 'Faça login para acessar sua conta';
+                }
+            });
+            
+            // Manipular o envio do formulário
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+                
+                // Validação básica
+                if (!username || !password) {
+                    showAlert('Por favor, preencha todos os campos', 'error');
+                    return;
+                }
+                
+                if (isRegisterMode) {
+                    registerUser(username, password);
+                } else {
+                    loginUser(username, password);
+                }
+            });
+            
+            // Cadastrar usuário
+            function registerUser(username, password) {
+                // Verificar se usuário já existe
+                const users = getUsers();
+                if (users[username]) {
+                    showAlert('Nome de usuário já está em uso', 'error');
+                    return;
+                }
+                
+                // Adicionar novo usuário
+                users[username] = { password };
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                showAlert('Cadastro realizado com sucesso!', 'success');
+                // Alternar para modo de login após cadastro
+                isRegisterMode = false;
+                loginButton.textContent = 'Entrar';
+                registerLink.textContent = 'Não tem uma conta? Registre-se';
+                document.querySelector('.logo h1').textContent = 'Bem-vindo';
+                document.querySelector('.logo p').textContent = 'Faça login para acessar sua conta';
+            }
+            
+            // Login do usuário
+            function loginUser(username, password) {
+                const users = getUsers();
+                
+                if (!users[username]) {
+                    showAlert('Usuário não encontrado', 'error');
+                    return;
+                }
+                
+                if (users[username].password !== password) {
+                    showAlert('Senha incorreta', 'error');
+                    return;
+                }
+                
+                showAlert('Login realizado com sucesso! Redirecionando...', 'success');
+                
+                // Simular redirecionamento após login
+                setTimeout(() => {
+                    // Aqui você pode redirecionar para a página principal
+                    window.location.href = 'dashboard.html';
+                    alert(`Bem-vindo, ${username}! (Redirecionamento simulado)`);
+                }, 1500);
+            }
+            
+            // Obter usuários do localStorage
+            function getUsers() {
+                return JSON.parse(localStorage.getItem('users')) || {};
+            }
+            
+            // Mostrar mensagem de alerta
+            function showAlert(message, type) {
+                // Remover alertas anteriores
+                const existingAlert = document.querySelector('.alert');
+                if (existingAlert) {
+                    existingAlert.remove();
+                }
+                
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert ${type}`;
+                alertDiv.textContent = message;
+                
+                // Adicionar estilo para o alerta
+                const style = document.createElement('style');
+                style.textContent = `
+                    .alert {
+                        padding: 12px;
+                        border-radius: 8px;
+                        margin-bottom: 20px;
+                        font-size: 14px;
+                        text-align: center;
+                        animation: fadeIn 0.3s ease;
+                    }
+                    .error {
+                        background-color: #ffebee;
+                        color: #c62828;
+                        border: 1px solid #ef9a9a;
+                    }
+                    .success {
+                        background-color: #e8f5e9;
+                        color: #2e7d32;
+                        border: 1px solid #a5d6a7;
+                    }
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(-10px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Inserir o alerta após o logo
+                const logo = document.querySelector('.logo');
+                logo.insertAdjacentElement('afterend', alertDiv);
+                
+                // Remover o alerta após 3 segundos
+                setTimeout(() => {
+                    alertDiv.style.animation = 'fadeOut 0.3s ease';
+                    setTimeout(() => {
+                        alertDiv.remove();
+                        style.remove();
+                    }, 300);
+                }, 3000);
+            }
+        });
+    </script>
+
 </body>
 </html>
