@@ -329,7 +329,7 @@
                 showAlert('Login realizado com sucesso! Redirecionando...', 'success');
         
                 setTimeout(() => {
-                    window.location.href = 'dashboard.html';
+                    window.location.href = `dashboard.html?user=${username}`;
                     alert(`Bem-vindo, ${username}! (Redirecionamento simulado)`);
                 }, 1500);
             }
